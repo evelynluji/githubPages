@@ -18,13 +18,32 @@ function cargarNombres(e) {
 
     if(origenSeleccionado !==''){
         url +='region=${origenSeleccionado}&';
-    
+    }
     if(origenSeleccionado !==''){
         url +='gender=${origenSeleccionado}&';    
-    
+    }
     if(cantidad !==''){
         url +='amount=${cantidad}&';      
     }
-} 
-    }
-}   
+    const xhr =new XMLHttpRequest(); 
+    xhr.open('GET',url,true);
+
+    xhr.onload = function(){
+        if(this.status === 200){
+            const nombres =JSON.parse( this.responseText  ) ;
+
+            let htmlNombres = '<h2>Nombres Generados </h2>';
+            htmlNombres += '<ul class="Lista">';
+
+            nombres.forEach(function(nombre){
+                htmlNombres += `
+                         <li>${nombre,name}
+                `;
+            })
+            hmltNombres += '<ul>';
+            document.getElementById('resultado').innerHTML = hmltNombres;
+        }
+    } 
+    xhr.send();
+}
+  
